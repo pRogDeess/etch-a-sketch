@@ -3,48 +3,43 @@ const divContainer = document.querySelector('#container');
 sketch.classList.add('sketchContainer');
 divContainer.appendChild(sketch);
 
-
-let cells = document.getElementsByClassName('cell');
-
 function createGrid() {
-    makeRows(16)
-    
+    makeRows(16);
+    addHoverEffect();
 }
 
 function makeRows(rowNum) {
-    for (i = 0; i < rowNum; i++) {
+    for (let i = 0; i < rowNum; i++) {
         let row = document.createElement('div');
         sketch.appendChild(row).classList.add('gridRow');
-        makeCols(row)
+        makeCols(row);
     }
 }
 
 function makeCols(row) {
-    for( j = 0; j < 16; j++) {
-    let newcell = document.createElement('div');
-    row.appendChild(newcell).classList.add('cell');
+    for (let j = 0; j < 16; j++) {
+        let newcell = document.createElement('div');
+        row.appendChild(newcell).classList.add('cell');
     }
 }
 
+function addHoverEffect() {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach((cell) => {
+        cell.addEventListener('mouseover', () => {
+            cell.classList.add('hovered');
+        });
+    });
+}
 
 createGrid();
-for(const cell of cells) {
-    cell.addEventListener('click', hovered);
-}
-
-function hovered(){
-for(const cell of cells) {
-    cell.addEventListener('mouseover', () => {
-        cell.classList.add('hovered');
-    })
-}
-}
 
 let reset = document.querySelector('.reset');
 reset.textContent = 'Reset';
 
 reset.addEventListener('click', () => {
-    for(const cell of cells) {
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach((cell) => {
         cell.classList.remove('hovered');
-    }
-})
+    });
+});
